@@ -30,7 +30,7 @@ public class Tokenizer {
                 tokens.add(new Token(numberbuilder.toString(), TokenType.OPERAND));
                 numberbuilder.setLength(0);
                 continue;
-            } else if (ExpressionsUtil.isOperator(exp[i] + "")) {
+            } else if (ExpressionsUtil.isOperator(exp[i])) {
                 if (numberbuilder.length() > 0) {
                     tokens.add(new Token(numberbuilder.toString(), TokenType.OPERAND));
                     numberbuilder.setLength(0);
@@ -41,7 +41,7 @@ public class Tokenizer {
                 tokens.add(new Token(exp[i++] + "", TokenType.PARENTHESIS));
                 continue;
             } else if (exp[i] == 's' && i + 3 < exp.length){ // custom word matching case
-                // Not modular but special case
+                // Not modular but special case for sqrt
                 if (exp[i + 1] == 'q' && exp[i + 2] =='r' && exp[i + 3] == 't') {
                     tokens.add(new Token(ExpressionsUtil.SQRT_CONST, TokenType.OPERATOR));
                     i += 4;

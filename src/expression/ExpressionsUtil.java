@@ -6,8 +6,14 @@ package expression;
 public final class ExpressionsUtil {
     public static final String SQRT_CONST = "√";
     public static final String[] OPERATOR_STRINGS = {"^", "√", "*", "/", "+", "-"};
-    //public static final String[] PARENTHESEES_STRINGS = {"(", ")"};
-    //public static final String OPERATOR_REGEX = "[-+*/^√]";
+    public static final OperatorType[] OPERATOR_STRING_TYPES = {
+            OperatorType.POWER,
+            OperatorType.SQRT,
+            OperatorType.MULTIPLY,
+            OperatorType.DIVIDE,
+            OperatorType.PLUS,
+            OperatorType.MINUS
+    };
 
     public static int indexOf(String search, String[] source) {
         for (int i = 0; i < source.length; ++i) {
@@ -29,32 +35,9 @@ public final class ExpressionsUtil {
 
     public static OperatorType getOperatorType(String data) {
         int ind = indexOf(data, OPERATOR_STRINGS);
-        if (ind == -1) throw new IllegalArgumentException("Not an operator -> " + data);
-
-        OperatorType ret = null;
-        switch (ind) {
-            case 0:
-                ret = OperatorType.POWER;
-                break;
-            case 1:
-                ret = OperatorType.SQRT;
-                break;
-            case 2:
-                ret = OperatorType.MULTIPLY;
-                break;
-            case 3:
-                ret = OperatorType.DIVIDE;
-                break;
-            case 4:
-                ret = OperatorType.PLUS;
-                break;
-            case 5:
-                ret = OperatorType.MINUS;
-                break;
-            default:
-                break;
+        if (ind == -1 || ind >= OPERATOR_STRING_TYPES.length) {
+            throw new IllegalArgumentException("Not an operator -> " + data);
         }
-
-        return ret;
+        return OPERATOR_STRING_TYPES[ind];
     }
 }
